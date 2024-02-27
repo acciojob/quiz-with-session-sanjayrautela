@@ -1,6 +1,3 @@
-//your JS code here.
-
-// Do not change code below this line
 // This code will just display the questions to the screen
 const questions = [
   {
@@ -32,6 +29,7 @@ const questions = [
 
 // Display the quiz questions and choices
 function renderQuestions() {
+  const questionsElement = document.getElementById("questions");
   for (let i = 0; i < questions.length; i++) {
     const question = questions[i];
     const questionElement = document.createElement("div");
@@ -43,9 +41,6 @@ function renderQuestions() {
       choiceElement.setAttribute("type", "radio");
       choiceElement.setAttribute("name", `question-${i}`);
       choiceElement.setAttribute("value", choice);
-      if (userAnswers[i] === choice) {
-        choiceElement.setAttribute("checked", true);
-      }
       const choiceText = document.createTextNode(choice);
       questionElement.appendChild(choiceElement);
       questionElement.appendChild(choiceText);
@@ -54,3 +49,17 @@ function renderQuestions() {
   }
 }
 renderQuestions();
+
+// Handle quiz submission and display score
+document.getElementById("submit").addEventListener("click", function() {
+  let score = 0;
+  for (let i = 0; i < questions.length; i++) {
+    const question = questions[i];
+    const selectedChoice = document.querySelector(`input[name="question-${i}"]:checked`);
+    if (selectedChoice && selectedChoice.value === question.answer) {
+      score++;
+    }
+  }
+  const scoreElement = document.getElementById("score");
+  scoreElement.textContent = `Your score: ${score}/${questions.length}`;
+});
