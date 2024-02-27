@@ -28,6 +28,7 @@ const questions = [
 ];
 
 // Display the quiz questions and choices
+// Display the quiz questions and choices
 function renderQuestions() {
   const questionsElement = document.getElementById("questions");
   for (let i = 0; i < questions.length; i++) {
@@ -41,6 +42,9 @@ function renderQuestions() {
       choiceElement.setAttribute("type", "radio");
       choiceElement.setAttribute("name", `question-${i}`);
       choiceElement.setAttribute("value", choice);
+      if (userAnswers[i] === choice) {
+        choiceElement.checked = true;
+      }
       const choiceText = document.createTextNode(choice);
       questionElement.appendChild(choiceElement);
       questionElement.appendChild(choiceText);
@@ -49,6 +53,7 @@ function renderQuestions() {
   }
 }
 renderQuestions();
+
 
 // Handle quiz submission and display score
 document.getElementById("submit").addEventListener("click", function() {
